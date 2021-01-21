@@ -54,7 +54,7 @@ void final_main(void)
 	//주차 자리 여부 LED(빨강) 사용을 위한 gpio 파일 오픈, OUT으로 방향 설정
 	fd_seat_green = open(devpath5, O_RDWR);
 	ioctl(fd_seat_green, GPIOIOC_SET_DIRECTION, GPIO_DIRECTION_OUT);	
-	//주차 자리 여부 LED(초록) 사용을 위한 gpio 파일 오픈, OUT으로 방형 설정
+	//주차 자리 여부 LED(초록) 사용을 위한 gpio 파일 오픈, OUT으로 방향 설정
 	fd_grn = open(devpath6, O_RDWR);
 	ioctl(fd_grn, GPIOIOC_SET_DIRECTION, GPIO_DIRECTION_OUT);	
 	//주차장 진입 정도를 표현하는 LED(초록) 사용을 위한 gpio 파일 오픈, OUT으로 방향 설정
@@ -137,7 +137,7 @@ void final_main(void)
 				i = 0;	//카운트를 0으로 설정
 				usleep(1000000);
 				close(fd_pwm0);		//pwm 파일 닫기 
-( 열지도 않았는데 닫는 이유는 LED 노란색 구역에서 부터 open되는데 초음파가 거리를 받아오기 전에 빠르게 구역을 빠져나오게 되면 pwm이 닫히지 못하고 계속 열려있어 스피커가 꺼지지 않음 )
+//( 열지도 않았는데 닫는 이유는 LED 노란색 구역에서 부터 open되는데 초음파가 거리를 받아오기 전에 빠르게 구역을 빠져나오게 되면 pwm이 닫히지 못하고 계속 열려있어 스피커가 꺼지지 않음 )
 
 				if(distance <= 3.0)	//LED 초록색 구역에 진입 했을 때
 				{
@@ -147,7 +147,7 @@ void final_main(void)
 
 					close(fd_pwm0);
 		//pwm 파일 닫기 
-		( LED노란색 구역에서 빠져나오면 스피커를 끄기 위해 파일을 닫음 )
+		//( LED노란색 구역에서 빠져나오면 스피커를 끄기 위해 파일을 닫음 )
 
 					if(distance <= 2.0)	//LED 노란색 구역에 진입 했을 때
 					{
@@ -157,7 +157,7 @@ void final_main(void)
 
 						close(fd_pwm0);	
 		//pwm 파일 닫기 
-		( LED빨간색 구역에서 빠져나오면 삐- 소리가 나던 스피커를 다시 reset하기 위해 일단 닫음 )
+		//( LED빨간색 구역에서 빠져나오면 삐- 소리가 나던 스피커를 다시 reset하기 위해 일단 닫음 )
 
 						fd_pwm0 = open("/dev/pwm0", O_RDWR);	//pwm 열기
 						usleep(100000);		//이 시간 동안 스피커 울림
